@@ -1,0 +1,25 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Loewenstark Magento License (LML 1.0).
+ * It is  available through the world-wide-web at this URL:
+ * http://www.loewenstark.de/licenses/lml-1.0.html
+ * If you are unable to obtain it through the world-wide-web, please send an 
+ * email to license@loewenstark.de so we can send you a copy immediately.
+ *
+ * @category   MVentory
+ * @package    MVentory_OneCheckout
+ * @copyright  Copyright (c) 2012 Ulrich Abelmann
+ * @copyright  Copyright (c) 2012 wwg.löwenstark im Internet GmbH
+ * @license    http://www.loewenstark.de/licenses/lml-1.0.html  Loewenstark Magento License (LML 1.0)
+ */
+?>
+<?php if ($_attributes = Mage::helper("onecheckout/attributes")->getAttributes($this->getParentBlock()->getItem())): ?>
+	<dl class="item-options">
+	<?php foreach($_attributes as $_attribute): ?>
+        <dt><?php echo $_attribute['label'] ?></dt>
+        <dd><?php echo $_attribute['value'] ?></dd>
+    <?php endforeach; ?>
+	</dl>
+<?php endif; ?>

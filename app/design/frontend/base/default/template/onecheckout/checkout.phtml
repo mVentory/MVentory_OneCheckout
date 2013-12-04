@@ -110,6 +110,8 @@ checkout.preloginUrl = "<?php echo $this->getUrl("onecheckout/ajax/preLogin") ?>
 checkout.triggerShipping = <?php echo Mage::helper("onecheckout")->getTriggers("shipping_method") ?>;
 checkout.triggerPayment = <?php echo Mage::helper("onecheckout")->getTriggers("payment_method") ?>;
 checkout.triggerReview = <?php echo Mage::helper("onecheckout")->getTriggers("review") ?>;
+checkout.formKey = '<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>';
+
 review = new Review($('checkout-agreements'));
 
 Event.observe(window, 'load', function() {

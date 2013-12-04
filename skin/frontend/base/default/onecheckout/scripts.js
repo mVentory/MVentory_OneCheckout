@@ -16,6 +16,7 @@ OneCheckout.prototype = {
 		this.triggerPayment = new Array();
 		this.triggerReview = new Array();
 		this.updateAreas = '';
+        this.formKey = '';
     },
 
 	getSteps: function() {
@@ -137,6 +138,9 @@ OneCheckout.prototype = {
 		if ($("login:guest") && $("login:guest").checked) {
 			paras = {checkout_method: 'register'};		
 		}
+
+    paras['form_key'] = this.formKey;
+
     shipping.syncWithBilling();
 		this.getSteps();
 		for (i = 0; i < this.steps.length; i++) {

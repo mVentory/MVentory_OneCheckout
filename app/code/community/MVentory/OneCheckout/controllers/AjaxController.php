@@ -108,7 +108,9 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
             return;
         }
 
-		$this->importDataToAddresses();
+      //Adresses will be imported by setAddresses() method
+      //$this->importDataToAddresses();
+    
 		$result = array();
 		$result = $this->_merge($result, Mage::helper("onecheckout")->setAddresses());
 		$result = $this->_merge($result, $this->saveShippingMethod());

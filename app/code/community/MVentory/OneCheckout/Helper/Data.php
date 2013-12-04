@@ -70,13 +70,13 @@ class MVentory_OneCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
 			}
 			
 			$result['savebilling'] = $this->getCheckout()->saveBilling($data, $customerAddressId);
-							
-			$usingCase = isset($data['use_for_shipping']) ? (int)$data['use_for_shipping'] : 0;
-			if (!$usingCase) {
-				$data = $request->getPost('shipping', array());
-			}
-			$customerAddressId = $request->getPost('shipping_address_id', false);
-			$result['saveshipping'] = $this->getCheckout()->saveShipping($data, $customerAddressId);
+      $result['saveshipping'] = array();
+
+      if (!(isset($data['use_for_shipping']) && $data['use_for_shipping'])) {
+        $data = $request->getPost('shipping', array());
+        $customerAddressId = $request->getPost('shipping_address_id', false);
+        $result['saveshipping'] = $this->getCheckout()->saveShipping($data, $customerAddressId);
+      }
 		}
 		return $result;	
 	}

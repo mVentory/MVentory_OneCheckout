@@ -69,7 +69,7 @@
 <script type="text/javascript">
     //<![CDATA[
     <?php echo $this->getChildChildHtml('scripts'); ?>
-    //payment.init();
+    payment.init();
     <?php if (is_string($oneMethod)): ?>
     payment.switchMethod('<?php echo $oneMethod ?>');
         <?php endif; ?>

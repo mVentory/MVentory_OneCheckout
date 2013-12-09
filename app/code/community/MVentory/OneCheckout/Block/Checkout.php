@@ -22,4 +22,11 @@ class MVentory_OneCheckout_Block_Checkout extends Mage_Core_Block_Template {
     public function isCustomerLoggedIn() {
         return Mage::getSingleton('customer/session')->isLoggedIn();
     }
+
+    public function hasErrorMessage () {
+        return  (bool) $this
+            ->getMessagesBlock()
+            ->getMessageCollection()
+            ->getLastAddedMessage();
+    }
 }

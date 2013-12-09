@@ -15,13 +15,28 @@
  * @license    http://www.loewenstark.de/licenses/lml-1.0.html  Loewenstark Magento License (LML 1.0)
  */
 ?>
+
+<?php
+
+$_noErrorMessage = !$this->hasErrorMessage();
+
+if (!$_noErrorMessage)
+	Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl("onecheckout"));
+
+?>
+
 <div class="page-title">
     <h1><?php echo $this->__('Checkout') ?></h1>
 </div>
 <div class="sub-title">
 	<?php if(!$this->isCustomerLoggedIn()): ?>
+
+		<?php if ($_noErrorMessage): ?>
 		<?php echo $this->__('You already have an account? <a href="#" id="onecheckout-login">Login here.</a>') ?>
-		<div id="onecheckout-login-form" style="display: none">
+		<?php endif; ?>
+
+		<div id="onecheckout-login-form" <?php if ($_noErrorMessage): ?>style="display: none"<?php endif; ?>>
+			<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 			<?php echo $this->getChildHtml("customer_form_login") ?>
         	<a href="<?php echo $this->helper('customer')->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
 		</div>

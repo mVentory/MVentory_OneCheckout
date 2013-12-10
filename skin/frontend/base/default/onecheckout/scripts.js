@@ -183,13 +183,20 @@ OneCheckout.prototype = {
 	
 		// login form
 		if ($("onecheckout-login")) {
-			$("onecheckout-login").observe("click", function() {
-				$(this).hide();
+			$("onecheckout-login").observe("click", function(e) {
 				new Effect.SlideDown("onecheckout-login-form", {duration:0.5});		
 
 				new Ajax.Request(that.preloginUrl, {
 					method:'post',
 				});	
+
+				Event.stopObserving(this);
+
+				$("onecheckout-login").observe("click", function(e) {
+					e.stop();
+				});
+
+				e.stop();
 			});			
 			
 		}		

@@ -22,16 +22,19 @@ class MVentory_OneCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
     $triggers = array(
       'shipping_method' => array(
         'region',
+        'country',
         'shipping_method',
         'payment_method'
       ),
       'payment_method' => array(
         'region',
+        'country',
         'shipping_method',
         'payment_method'
       ),
       'review' => array(
         'region',
+        'country',
         'shipping_method',
         'payment_method'
       )

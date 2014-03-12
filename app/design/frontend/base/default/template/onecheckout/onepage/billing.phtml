@@ -135,24 +135,55 @@
                     <?php endif; ?>
                 </li>
 
+                <?php
+
+                $_isZipRequired = $_helper->isZipCodeRequired($this);
+                $_liClass = $_isZipRequired ? 'fields' : 'wide';
+                $_divClass = $_isZipRequired ? 'field' : 'field hidden';
+
+                ?>
+
                 <?php if ($_showRegion): ?>
-                <li class="wide">
-                    <label for="billing:country_id" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
-                    <div class="input-box">
-                        <?php echo $this->getCountryHtmlSelect('billing') ?>
+                <li class="<?php echo $_liClass; ?>">
+                    <div class="field">
+                        <label for="billing:country_id" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+                        <div class="input-box">
+                            <?php echo $this->getCountryHtmlSelect('billing') ?>
+                         </div>
+                    </div>
+                    <div class="<?php echo $_divClass; ?>">
+                        <label for="billing:postcode"<?php if ($_isZipRequired):?> class="required"<?php endif?>><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                        <div class="input-box">
+                            <input type="text" title="<?php echo $this->__('Zip/Postal Code') ?>" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                        </div>
                     </div>
                 </li>
                 <?php endif; ?>
 
-                <?php $_postcode = $this->escapeHtml($this->getAddress()->getPostcode()); ?>
-                <input type="hidden" name="billing[postcode]" value="<?php echo $_postcode ? $_postcode : '-' ?>" />
-
+                <?php if ($_showRegion): ?>
                 <li class="wide">
                     <label for="billing:telephone" ><?php echo $this->__('Telephone') ?></label>
                     <div class="input-box">
                         <input type="text" name="billing[telephone]" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text" id="billing:telephone" />
                     </div>
                 </li>
+                <?php else: ?>
+                <li class="<?php echo $_liClass; ?>">
+                    <div class="<?php echo $_divClass; ?>">
+                        <label for="billing:postcode"<?php if ($_isZipRequired):?> class="required"<?php endif?>><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                        <div class="input-box">
+                            <input type="text" title="<?php echo $this->__('Zip/Postal Code') ?>" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="billing:telephone" ><?php echo $this->__('Telephone') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="billing[telephone]" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text" id="billing:telephone" />
+                        </div>
+                    </div>
+                </li>
+                <?php endif; ?>
+
                 <?php if(!$this->isCustomerLoggedIn()): ?>
 
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>

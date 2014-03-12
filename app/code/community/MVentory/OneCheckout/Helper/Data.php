@@ -83,6 +83,15 @@ class MVentory_OneCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
 		}
 		return $result;	
 	}
+
+  public function isZipCodeRequired ($block) {
+    $countryCode = $block->getAddress()->getCountryId();
+
+    if ($countryCode === null)
+      $countryCode = Mage::helper('core')->getDefaultCountry();
+
+    return !Mage::helper('directory')->isZipCodeOptional($countryCode);
+  }
 }
 
 

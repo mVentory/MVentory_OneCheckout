@@ -168,7 +168,40 @@ OneCheckout.prototype = {
 		//		$("shippingaddress").hide();
 		//	} 
 		//});
-		
+
+        $("billing:country_id").observe("change", function() {
+            var country = $F(this);
+            var optionalZip = false;
+
+            for (var i = 0; i < optionalZipCountries.length; i++)
+                if (optionalZipCountries[i] == country)
+                    optionalZip = true;
+
+            var postcode = $('billing:postcode');
+
+            if (optionalZip) {
+                //postcode.removeClassName('required-entry');
+                postcode
+                  .up()
+                  .removeClassName('required')
+                  .up()
+                  .addClassName('hidden')
+                  .up()
+                  .removeClassName('fields')
+                  .addClassName('wide');
+            }
+            else {
+                postcode
+                  .up()
+                  .addClassName('required')
+                  .up()
+                  .removeClassName('hidden')
+                  .up()
+                  .addClassName('fields')
+                  .removeClassName('wide');
+            }
+        });
+
 		// register checkbox
 		if ($("login:guest") && $("register-customer-password")) {
 			$("login:guest").observe("click", function() {

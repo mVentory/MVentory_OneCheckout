@@ -59,9 +59,29 @@ class MVentory_OneCheckout_Helper_Data extends Mage_Core_Helper_Abstract {
 		if ($request->isPost()) {
 			$data = $request->getPost('billing', array());
 			$customerAddressId = $request->getPost('billing_address_id', false);
-			if (isset($data['email'])) {
-				$data['email'] = trim($data['email']);
-			}
+
+      if (!(isset($data['email']) && $data['email']))
+        $data['email'] = 'example@example.com';
+      else
+        $data['email'] = trim($data['email']);
+
+      if (!(isset($data['firstname']) && $data['firstname']))
+        $data['firstname'] = '-';
+
+      if (!(isset($data['lastname']) && $data['lastname']))
+        $data['lastname'] = '-';
+
+      if (!(isset($data['street'][0]) && $data['street'][0]))
+        $data['street'][0] = '-';
+
+      if (!(isset($data['region_id']) && $data['region_id']))
+        $data['region_id'] = '-';
+
+      if (!(isset($data['city']) && $data['city']))
+        $data['city'] = '-';
+
+      if (!(isset($data['postcode']) && $data['postcode']))
+        $data['postcode'] = '-';
 
       if (!(isset($data['telephone']) && $data['telephone']))
         $data['telephone'] = '-';

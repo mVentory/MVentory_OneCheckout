@@ -63,54 +63,6 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
 		$layout->getUpdate()->setCacheId("NOCACHE_" . microtime() . rand(1, 1000));
 	}
 
-    protected function _getShippingMethodsHtml() {
-        $layout = $this->getLayout();
-        $update = $layout->getUpdate();
-		$this->unCache();
-
-        $update
-            ->resetUpdates()
-            ->resetHandles();
-
-        $update->load('checkout_onepage_shippingmethod');
-        $layout->generateXml();
-        $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
-    }
-
-    protected function _getPaymentMethodsHtml() {
-        $layout = $this->getLayout();
-        $update = $layout->getUpdate();
-		$this->unCache();
-
-        $update
-            ->resetUpdates()
-            ->resetHandles();
-
-        $update->load('onecheckout_ajax_paymentmethod');
-        $layout->generateXml();
-        $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
-    }
-	
-	protected function _getReviewHtml() {
-        $layout = $this->getLayout();
-        $update = $layout->getUpdate();
-		$this->unCache();
-
-        $update
-            ->resetUpdates()
-            ->resetHandles();
-
-        $update->load('onecheckout_ajax_review');
-        $layout->generateXml();
-        $layout->generateBlocks();
-        $output = $layout->getOutput();
-        return $output;
-    }
-
 	private function _merge($result, $tmpResult) {
 		if (is_array($tmpResult)) {
 			$result = array_merge_recursive($result, $tmpResult);
@@ -132,9 +84,9 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
 		$result = $this->_merge($result, $this->savePayment());
         $this->getQuote()->setTotalsCollectedFlag(false)->collectTotals()->save();
        
-		$result['updates']['checkout-payment-method-load'] = $this->_getPaymentMethodsHtml();
-		$result['updates']['checkout-shipping-method-load'] = $this->_getShippingMethodsHtml();
-		$result['updates']['checkout-review-load'] = $this->_getReviewHtml();
+		$result['updates']['checkout-payment-method-load'] = $this->_getHtml('onecheckout_ajax_paymentmethod');
+		$result['updates']['checkout-shipping-method-load'] = $this->_getHtml('checkout_onepage_shippingmethod');
+		$result['updates']['checkout-review-load'] = $this->_getHtml('onecheckout_ajax_review');
 		
 	   	$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }	
@@ -295,4 +247,21 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
         $method->assignData($data);		
 	}
 	
+    private function _getHtml ($handle) {
+        $layout = $this->getLayout();
+
+        $this->unCache();
+
+        $layout
+            ->getUpdate()
+            ->resetUpdates()
+            ->resetHandles()
+            ->load($handle);
+
+        $layout
+            ->generateXml()
+            ->generateBlocks();
+
+        return $layout->getOutput();
+    }
 }

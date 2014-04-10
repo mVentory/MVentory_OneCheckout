@@ -48,7 +48,7 @@
           <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
         </block>
         <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="checkout/onepage/payment.phtml">
-          <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="onecheckout/onepage/payment/methods.phtml">
+          <block type="onecheckout/mage_checkout_onepage_payment_methods" name="checkout.payment.methods" as="methods" template="onecheckout/onepage/payment/methods.phtml">
             <action method="setMethodFormTemplate">
               <method>purchaseorder</method>
               <template>payment/form/purchaseorder.phtml</template>
@@ -89,7 +89,7 @@
     <remove name="right"/>
     <remove name="left"/>
 
-    <block type="checkout/onepage_payment_methods" name="root" output="toHtml" template="onecheckout/onepage/payment/methods.phtml">
+    <block type="onecheckout/mage_checkout_onepage_payment_methods" name="root" output="toHtml" template="onecheckout/onepage/payment/methods.phtml">
       <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
     </block>
   </checkout_onepage_paymentmethod>

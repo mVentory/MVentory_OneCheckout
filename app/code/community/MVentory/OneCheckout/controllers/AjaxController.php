@@ -58,11 +58,6 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
 		die(1);
 	}
 
-	protected function unCache() {
-		$layout = $this->getLayout();
-		$layout->getUpdate()->setCacheId("NOCACHE_" . microtime() . rand(1, 1000));
-	}
-
 	private function _merge($result, $tmpResult) {
 		if (is_array($tmpResult)) {
 			$result = array_merge_recursive($result, $tmpResult);
@@ -250,12 +245,15 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
     private function _getHtml ($handle) {
         $layout = $this->getLayout();
 
-        $this->unCache();
-
+        //Remove previously loaded handles data to completely reset
+        //layout update before loading new handle.
+        //Reset cache ID to regenerate it for the new handle otherwise
+        //it uses cached data from previous handles
         $layout
             ->getUpdate()
             ->resetUpdates()
             ->resetHandles()
+            ->setCacheId(null)
             ->load($handle);
 
         $layout

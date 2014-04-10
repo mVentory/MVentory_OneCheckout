@@ -67,6 +67,11 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
 		$this->unCache();
+
+        $update
+            ->resetUpdates()
+            ->resetHandles();
+
         $update->load('checkout_onepage_shippingmethod');
         $layout->generateXml();
         $layout->generateBlocks();
@@ -78,6 +83,11 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
 		$this->unCache();
+
+        $update
+            ->resetUpdates()
+            ->resetHandles();
+
         $update->load('onecheckout_ajax_paymentmethod');
         $layout->generateXml();
         $layout->generateBlocks();
@@ -89,6 +99,11 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
 		$this->unCache();
+
+        $update
+            ->resetUpdates()
+            ->resetHandles();
+
         $update->load('onecheckout_ajax_review');
         $layout->generateXml();
         $layout->generateBlocks();

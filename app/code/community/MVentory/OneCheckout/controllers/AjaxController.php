@@ -78,7 +78,7 @@ class MVentory_OneCheckout_AjaxController extends Mage_Core_Controller_Front_Act
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
 		$this->unCache();
-        $update->load('checkout_onepage_paymentmethod');
+        $update->load('onecheckout_ajax_paymentmethod');
         $layout->generateXml();
         $layout->generateBlocks();
         $output = $layout->getOutput();

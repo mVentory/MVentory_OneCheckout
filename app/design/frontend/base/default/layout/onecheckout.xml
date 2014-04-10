@@ -85,14 +85,14 @@
     </reference>
   </onecheckout_index_index>
 
-  <checkout_onepage_paymentmethod>
+  <onecheckout_ajax_paymentmethod>
     <remove name="right"/>
     <remove name="left"/>
 
     <block type="onecheckout/mage_checkout_onepage_payment_methods" name="root" output="toHtml" template="onecheckout/onepage/payment/methods.phtml">
       <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
     </block>
-  </checkout_onepage_paymentmethod>
+  </onecheckout_ajax_paymentmethod>
 
   <!-- 
   	this is done by a controller 
